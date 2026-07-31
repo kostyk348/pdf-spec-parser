@@ -161,7 +161,7 @@ The tool automatically detects and removes or generalizes brand names:
 
 ## License
 
-MIT
+Apache 2.0
 
 ## See Also
 
