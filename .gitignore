@@ -21,10 +21,12 @@ env/
 .DS_Store
 Thumbs.db
 
-# PDF sample / test files — not committed
+# PDF sample / test files — not committed, except the example templates
 *.pdf
 *.xlsx
 !examples/*.md
+!examples/*.pdf
+out/
 
 # Font files (user-provided)
 fonts/

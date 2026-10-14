@@ -1,23 +1,25 @@
 [build-system]
 requires = ["setuptools>=68.0"]
-build-backend = "setuptools.backends._legacy:_Backend"
+# "setuptools.backends._legacy:_Backend" is not an importable module path —
+# every `pip install -e .` failed with ModuleNotFoundError. The public
+# backend is setuptools.build_meta.
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "pdf-spec-parser"
-version = "1.0.0"
+version = "1.1.0"
 description = "Universal procurement PDF spec parser & obfuscator"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "Apache-2.0"}
 keywords = ["pdf", "specification", "gost", "cid", "parser", "obfuscator"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Manufacturing",
     "Intended Audience :: Engineering",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Office/Business :: Financial :: Invoice Processing",
     "Topic :: Text Processing :: Filters",
 ]
@@ -26,7 +28,9 @@ authors = [
     {name = "kostyk348", email = "kostyk348@users.noreply.github.com"},
 ]
 
-requires-python = ">=3.9"
+# The runtime dependencies build wheels for 3.11+ (current PyMuPDF and
+# fonttools releases dropped 3.9/3.10). CI covers 3.11 and 3.13.
+requires-python = ">=3.11"
 
 dependencies = [
     "pdfplumber>=0.7",
@@ -44,6 +48,7 @@ BugTracker = "https://github.com/kostyk348/pdf-spec-parser/issues"
 
 [project.scripts]
 pdf-spec-parser = "pdf_spec_parser.parser:main"
+pdf-spec-parser-validate = "pdf_spec_parser.validate:main"
 
 [tool.setuptools.packages.find]
 include = ["pdf_spec_parser*"]

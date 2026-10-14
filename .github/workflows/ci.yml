@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Runtime dependencies (PyMuPDF, fonttools) build wheels for 3.11+.
+        python-version: ['3.11', '3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install the package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Unit + end-to-end tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate every example template (contract + manifest)
+        run: python -m pdf_spec_parser.validate --examples --out-dir out/
+
+      - name: CLI smoke run on each template
+        run: |
+          for pdf in examples/template_*.pdf; do
+            python -m pdf_spec_parser "$pdf" --out-dir out/ --no-websearch
+          done
+          ls -l out/
+
+      - name: Upload CLI output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-spec-parser-out-py${{ matrix.python-version }}
+          path: out/
+          if-no-files-found: warn

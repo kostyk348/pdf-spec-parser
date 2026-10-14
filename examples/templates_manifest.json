@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0",
+  "generator": "examples/make_templates.py",
+  "note": "Ground truth for `python -m pdf_spec_parser.validate` and the test-suite. `sha256` pins the exact PDF revision the expectations were written for.",
+  "templates": [
+    {
+      "id": "template_a",
+      "file": "template_a_gost_drawing.pdf",
+      "title": "Блок WA.00.000 — схема электрическая принципиальная",
+      "layout": "large-format drawing (5940×4200 pt), spec table with 5 columns (Поз. / Наименование / Обозначение / Кол. / Ед. изм.) above the title block, row pitch 120 pt, one two-line name",
+      "exercises": [
+        "header row + code column + separate unit column",
+        "two-line name merged into one item",
+        "quantity in centimetres converted to metres",
+        "component outside the knowledge base (websearch path)",
+        "drawing annotations ignored"
+      ],
+      "sha256": "3201bc2bbd36f9241a8b125a5dccb114cc80c2d4bd679f1acf8bdf3f841e1223",
+      "expected_items": [
+        {
+          "pos": 1,
+          "name_contains": "Реле промежуточное",
+          "qty": 3.0,
+          "unit": "шт",
+          "code": "РЕК78/4",
+          "category": "Коммутационное оборудование"
+        },
+        {
+          "pos": 2,
+          "name_contains": "Блок зажимов",
+          "qty": 12.0,
+          "unit": "шт",
+          "code": "ЗВИ6",
+          "category": "Клеммы и монтаж"
+        },
+        {
+          "pos": 3,
+          "name_contains": "Провод монтажный",
+          "qty": 2.5,
+          "unit": "м",
+          "code": "ПВ3",
+          "category": "Провода и кабели"
+        },
+        {
+          "pos": 4,
+          "name_contains": "Светосигнальный индикатор",
+          "qty": 8.0,
+          "unit": "шт",
+          "code": "НД16",
+          "category": "Светосигнальная арматура"
+        },
+        {
+          "pos": 5,
+          "name_contains": "Датчик температуры",
+          "qty": 2.0,
+          "unit": "шт",
+          "code": "ТСМ100",
+          "category": "Прочее"
+        }
+      ]
+    },
+    {
+      "id": "template_b",
+      "file": "template_b_continuation.pdf",
+      "title": "Продолжение спецификации оборудования и материалов",
+      "layout": "A4 portrait (595×842 pt), table at the TOP of the page, 5 columns (№ / Обозначение / Наименование / Кол-во / Ед. изм.), dense row pitch 22 pt, footer text below the table",
+      "exercises": [
+        "table at the top of the page (headers are not the lowest text)",
+        "dense rows: fixed row band would merge neighbouring items",
+        "quantity cell without a number (\"комплект\")",
+        "brand name removal (Сальник MG12 Chint)",
+        "footer text below the table ignored"
+      ],
+      "sha256": "617a3f3f2295cdf9f52769ea3f53cee91193806add707670f8b69b7e8284d1b0",
+      "expected_items": [
+        {
+          "pos": 1,
+          "name_contains": "Реле промежуточное",
+          "qty": 4.0,
+          "unit": "шт",
+          "code": "РП21",
+          "category": "Коммутационное оборудование"
+        },
+        {
+          "pos": 2,
+          "name_contains": "Розетка",
+          "qty": 4.0,
+          "unit": "шт",
+          "code": "РП21-Р",
+          "category": "Коммутационное оборудование"
+        },
+        {
+          "pos": 3,
+          "name_contains": "Провод монтажный",
+          "qty": 1.5,
+          "unit": "м",
+          "code": "ПВ3",
+          "category": "Провода и кабели"
+        },
+        {
+          "pos": 4,
+          "name_contains": "Кабель контрольный",
+          "qty": 12.0,
+          "unit": "м",
+          "code": "КВВГ",
+          "category": "Провода и кабели"
+        },
+        {
+          "pos": 5,
+          "name_contains": "Наконечник штыревой",
+          "qty": 100.0,
+          "unit": "шт",
+          "code": "НГИ1",
+          "category": "Монтажные материалы"
+        },
+        {
+          "pos": 6,
+          "name_contains": "Ввод кабельный",
+          "qty": 2.0,
+          "unit": "шт",
+          "code": "MG12",
+          "category": "Корпусное оборудование и аксессуары"
+        },
+        {
+          "pos": 7,
+          "name_contains": "Стяжка нейлоновая",
+          "qty": 50.0,
+          "unit": "шт",
+          "code": "СТ200",
+          "category": "Монтажные материалы"
+        },
+        {
+          "pos": 8,
+          "name_contains": "Комплект крепежа",
+          "qty": null,
+          "unit": null,
+          "code": "КР",
+          "category": "Прочее"
+        }
+      ]
+    },
+    {
+      "id": "template_c",
+      "file": "template_c_board_spec.pdf",
+      "title": "Спецификация навесного оборудования щита ЩРН-12",
+      "layout": "A3 landscape (1191×842 pt), columns in an unusual ORDER (Поз. / Кол. / Ед. / Наименование / Примечание), row pitch 40 pt, one two-line name, note column",
+      "exercises": [
+        "quantity column left of the name column",
+        "note column present and ignored",
+        "two-line name merged into one item",
+        "component with a known category but no rule for its parameters (Автомат ВА 47-29 IEK)"
+      ],
+      "sha256": "4ead5208ff7c02d687f1a5261737b8d9f1b05653e2914f14e57094307043547a",
+      "expected_items": [
+        {
+          "pos": 1,
+          "name_contains": "Блок зажимов",
+          "qty": 20.0,
+          "unit": "шт",
+          "code": "",
+          "category": "Клеммы и монтаж"
+        },
+        {
+          "pos": 2,
+          "name_contains": "Выключатель клавишный",
+          "qty": 6.0,
+          "unit": "шт",
+          "code": "",
+          "category": "Коммутационное оборудование"
+        },
+        {
+          "pos": 3,
+          "name_contains": "Автомат",
+          "qty": 3.0,
+          "unit": "шт",
+          "code": "",
+          "category": "Коммутационное оборудование"
+        },
+        {
+          "pos": 4,
+          "name_contains": "Изолятор",
+          "qty": 24.0,
+          "unit": "шт",
+          "code": "",
+          "category": "Монтажные материалы"
+        },
+        {
+          "pos": 5,
+          "name_contains": "Датчик температуры",
+          "qty": 1.0,
+          "unit": "компл",
+          "code": "",
+          "category": "Прочее"
+        }
+      ]
+    }
+  ]
+}
