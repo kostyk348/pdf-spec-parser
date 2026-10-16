@@ -1,5 +1,10 @@
 # pdf-spec-parser
 
+[![CI](https://github.com/kostyk348/pdf-spec-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/kostyk348/pdf-spec-parser/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/kostyk348/pdf-spec-parser?sort=semver&color=blue)](https://github.com/kostyk348/pdf-spec-parser/releases)
+[![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://github.com/kostyk348/pdf-spec-parser/blob/master/LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/kostyk348/pdf-spec-parser?branch=master)](https://github.com/kostyk348/pdf-spec-parser/commits/master)
+
 **Universal procurement PDF specification parser & obfuscator.**
 
 Extracts specification tables from GOST-font vector PDF drawings, automatically classifies components by type, removes brand/proprietary information, and exports to clean formatted Excel + PDF — plus a **documented CSV/JSON output contract** for machine consumption.
@@ -84,13 +89,16 @@ ranges remain as a fallback for tables whose header row is not recognised.
 
 ```bash
 # Clone the repository
+
 git clone https://github.com/kostyk348/pdf-spec-parser.git
 cd pdf-spec-parser
 
 # Install (Python 3.11+)
+
 pip install -e .
 
 # Or install dependencies manually
+
 pip install pdfplumber openpyxl reportlab fonttools PyMuPDF requests
 ```
 
@@ -100,6 +108,7 @@ For decoding GOST Identity-H CID fonts, you need a `GOSTTypeA_2.ttf` font file:
 
 ```bash
 # Place it in one of these locations:
+
 ./fonts/GOSTTypeA_2.ttf
 ~/Downloads/fonts/GOSTTypeA_2.ttf
 ```
@@ -114,18 +123,23 @@ font is proprietary and is not shipped with the repository.
 
 ```bash
 # Basic usage — output files get the `_anon` suffix
+
 python -m pdf_spec_parser drawing.pdf
 
 # Custom output prefix
+
 python -m pdf_spec_parser drawing.pdf output_prefix
 
 # Verbose mode (shows progress and every parsed item)
+
 python -m pdf_spec_parser drawing.pdf --verbose
 
 # Machine-readable output only, deterministic and offline
+
 python -m pdf_spec_parser drawing.pdf --format csv,json --no-websearch
 
 # Everything into a directory of its own
+
 python -m pdf_spec_parser drawing.pdf --out-dir out/ --format all
 ```
 
@@ -168,10 +182,12 @@ items = parse_pdf("drawing.pdf", websearch=False, stats=stats)
 # ]
 
 # Human exports
+
 export_xlsx(items, "output.xlsx", cabinet_name="Блок WA.00.000")
 export_pdf(items, "output.pdf", title_text="Блок WA.00.000")
 
 # Machine contract
+
 records = contract.to_records(items)
 contract.write_csv(records, "spec.csv")
 document = contract.build_document(records, "drawing.pdf", stats)
