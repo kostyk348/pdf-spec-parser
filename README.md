@@ -1,11 +1,20 @@
+<div align="center">
+
+<img src="docs/banner.svg" alt="pdf-spec-parser banner" width="1000">
+
 # pdf-spec-parser
+
+### Universal procurement PDF specification parser & obfuscator.
 
 [![CI](https://github.com/kostyk348/pdf-spec-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/kostyk348/pdf-spec-parser/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/kostyk348/pdf-spec-parser?sort=semver&color=blue)](https://github.com/kostyk348/pdf-spec-parser/releases)
 [![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://github.com/kostyk348/pdf-spec-parser/blob/master/LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/kostyk348/pdf-spec-parser?branch=master)](https://github.com/kostyk348/pdf-spec-parser/commits/master)
 
-**Universal procurement PDF specification parser & obfuscator.**
+</div>
+
+---
+
 
 Extracts specification tables from GOST-font vector PDF drawings, automatically classifies components by type, removes brand/proprietary information, and exports to clean formatted Excel + PDF — plus a **documented CSV/JSON output contract** for machine consumption.
 
